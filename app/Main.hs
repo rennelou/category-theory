@@ -2,6 +2,8 @@
 {-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE TypeFamilies              #-}
 
+import Categories.Finite
+
 import Diagrams.Prelude
 import Diagrams.Backend.SVG.CmdLine
 

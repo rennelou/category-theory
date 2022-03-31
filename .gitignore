@@ -2,3 +2,4 @@ Main
 app/*.hi
 app/*.o
 dist-newstyle
+*.svg
