@@ -22,12 +22,13 @@ module Categories.Finite
     finiteTarget (Id o) = o
 
     finiteIdent :: FiniteObject -> FiniteArrow
-    finiteIdent a = Id a
+    finiteIdent = Id
 
     finiteComp :: FiniteArrow -> FiniteArrow -> FiniteArrow
     finiteComp (Id _) b = b
     finiteComp b (Id _) = b
     finiteComp G F = K
     finiteComp H F = K
+    finiteComp _ _ = error "these arrows not compose" 
 
     finiteCat = Cat finiteSource finiteTarget finiteIdent finiteComp

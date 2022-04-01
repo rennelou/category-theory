@@ -22,4 +22,6 @@ tournament n = atPoints (trailVertices (regPoly n 1)) (map node [1..n])
 example :: Diagram B
 example = tournament 6
 
+finite = finiteCat
+
 main = mainWith example

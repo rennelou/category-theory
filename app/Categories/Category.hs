@@ -3,4 +3,9 @@ module Categories.Category
     Cat(..)
 ) where
 
-    data Cat arrow object = Cat (arrow -> object) (arrow -> object) (object -> arrow) (arrow -> arrow -> arrow)
+    data Cat object arrow = Cat {
+        source :: arrow -> object,
+        target :: arrow -> object,
+        identity :: object -> arrow,
+        camposition :: arrow -> arrow -> arrow
+    }
