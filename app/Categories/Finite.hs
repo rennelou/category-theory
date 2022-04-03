@@ -1,10 +1,12 @@
 module Categories.Finite
 (
-    finiteCat
+    finiteCat,
+    FiniteObject(..),
+    FiniteArrow(..)
 ) where
     import Categories.Category
 
-    data FiniteObject = A | B | C
+    data FiniteObject = A | B | C deriving(Show)
     data FiniteArrow = F | G | H | K | Id FiniteObject
 
     finiteSource :: FiniteArrow -> FiniteObject
