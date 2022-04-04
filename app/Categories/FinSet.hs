@@ -10,9 +10,9 @@ module Categories.FinSet (
     type FinSetObject t = Set.Set t
 
     data FinSetArrow t = FinSetArrow {
-        domain :: FinSetObject t,
+        domain :: Set.Set t,
         totalFunction :: t -> t,
-        codomain :: FinSetObject t
+        codomain :: Set.Set t
     }
 
     finSetSource :: FinSetArrow t -> FinSetObject t
@@ -29,6 +29,4 @@ module Categories.FinSet (
                FinSetArrow {domain = c, totalFunction = g, codomain = d} =
                    if b == c
                        then FinSetArrow a (\x -> g(f x)) d
-                        else error "these arrows not compose"
-
-    finSetCat = Cat finSetSource finSetTarget finSetId finSetComp
+                       else error "these arrows not compose"
