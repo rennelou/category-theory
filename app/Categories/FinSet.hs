@@ -1,7 +1,7 @@
 module Categories.FinSet (
     FinSetObject,
     FinSetArrow(..),
-    
+    finIntSetCat
 ) where
     import Categories.Category
 
@@ -30,3 +30,6 @@ module Categories.FinSet (
                    if b == c
                        then FinSetArrow a (\x -> g(f x)) d
                        else error "these arrows not compose"
+
+    finIntSetCat :: Cat (FinSetObject Int) (FinSetArrow Int)
+    finIntSetCat = Cat finSetSource finSetTarget finSetId finSetComp
