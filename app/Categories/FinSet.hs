@@ -22,13 +22,13 @@ module Categories.FinSet (
     finSetTarget FinSetArrow {domain = _, totalFunction = _, codomain = c} = c
 
     finSetId :: FinSetObject t -> FinSetArrow t
-    finSetId object = FinSetArrow object (\x -> x) object
+    finSetId object = FinSetArrow object id object
 
     finSetComp :: (Ord t) => FinSetArrow t -> FinSetArrow t -> FinSetArrow t
     finSetComp FinSetArrow {domain = a, totalFunction = f, codomain = b}
                FinSetArrow {domain = c, totalFunction = g, codomain = d} =
                    if b == c
-                       then FinSetArrow a (\x -> g(f x)) d
+                       then FinSetArrow a (g.f) d
                        else error "these arrows not compose"
 
     finIntSetCat :: Cat (FinSetObject Int) (FinSetArrow Int)
