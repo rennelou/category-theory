@@ -5,16 +5,16 @@ module DiagramChasing (
     import Diagrams.Prelude
     import Diagrams.Backend.SVG.CmdLine
 
-    node :: (Show o) => o -> Diagram B
-    node n = text (show n) # fontSizeL 0.2 # fc white 
-                <> circle 0.2 # fc green # named (show n)
+    node :: String -> Diagram B
+    node s = text s # fontSizeL 0.2 # fc white 
+                <> circle 0.2 # fc green # named s
 
     customConnectOutside = connectOutside' arrawOpts
         where arrawOpts = with  & gaps .~ small 
                             & headLength  .~ local 0.15
 
-    diagramChasing :: (Show o) => Cat o a -> [o] -> [a] -> Diagram B
-    diagramChasing cat o a = atPoints (trailVertices (regPoly (length o) 1)) (map node o)
+    diagramChasing :: Cat o a -> (o -> String) -> [o] -> [a] -> Diagram B
+    diagramChasing cat tag o a = atPoints (trailVertices (regPoly (length o) 1)) (map (node.tag) o)
         # applyAll [ 
-            customConnectOutside (show $ source cat arrow) (show $ target cat arrow) | arrow <- a
+            customConnectOutside (tag $ source cat arrow) (tag $ target cat arrow) | arrow <- a
         ]

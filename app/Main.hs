@@ -14,12 +14,20 @@ f = constructFinSetArrow a (\x -> x*x) Set.empty
 
 b = codomain f
 
-g = constructFinSetArrow b (floor . sqrt . fromIntegral) Set.empty
+g = constructFinSetArrow b (floor . sqrt . fromIntegral) (Set.fromList [0, 1])
 
 h = constructFinSetArrow a (*3) (Set.fromList [5])
 c = codomain h
 
+tag :: Set.Set Int -> String 
+tag x 
+    | x == a = "A"
+    | x == b = "B"
+    | x == c = "C"
+    | otherwise = "Void"
+
+
 example :: Diagram B
-example = diagramChasing finIntSetCat [a, b, c] [f, g, h]
+example = diagramChasing finIntSetCat tag [a, b, c] [f, g, h]
 
 main = mainWith example
