@@ -10,12 +10,14 @@ import qualified Data.Set as Set
 import Categories.FinSet
 
 a = Set.fromList [0, 1, 2, 3]
-b = Set.fromList [0, 1, 4, 9]
-c = Set.fromList [0, 3, 6, 9]
+f = constructFinSetArrow a (\x -> x*x) Set.empty
 
-f = FinSetArrow a (\x -> x*x) b
-g = FinSetArrow b (floor . sqrt . fromIntegral) a
-h = FinSetArrow a (*3) c
+b = codomain f
+
+g = constructFinSetArrow b (floor . sqrt . fromIntegral) Set.empty
+
+h = constructFinSetArrow a (*3) (Set.fromList [5])
+c = codomain h
 
 example :: Diagram B
 example = diagramChasing finIntSetCat [a, b, c] [f, g, h]

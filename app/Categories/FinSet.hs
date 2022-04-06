@@ -1,6 +1,10 @@
 module Categories.FinSet (
     FinSetObject,
-    FinSetArrow(..),
+    FinSetArrow,
+    domain,
+    totalFunction,
+    codomain,
+    constructFinSetArrow,
     finIntSetCat
 ) where
     import Categories.Category
@@ -14,6 +18,9 @@ module Categories.FinSet (
         totalFunction :: t -> t,
         codomain :: Set.Set t
     }
+
+    constructFinSetArrow :: (Ord t) => Set.Set t -> (t -> t) -> Set.Set t -> FinSetArrow t
+    constructFinSetArrow d f c = FinSetArrow d f (Set.union c (Set.map f d))
 
     finSetSource :: FinSetArrow t -> FinSetObject t
     finSetSource FinSetArrow {domain = d, totalFunction = _, codomain = _} = d
