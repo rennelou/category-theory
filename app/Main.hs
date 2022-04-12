@@ -24,7 +24,7 @@ tag x
     | x == a = "A"
     | x == b = "B"
     | x == c = "C"
-    | otherwise = "Void"
+    | otherwise = "Untaged"
 
 
 example :: Diagram B
