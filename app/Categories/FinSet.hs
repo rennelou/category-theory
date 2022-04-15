@@ -5,7 +5,9 @@ module Categories.FinSet (
     totalFunction,
     codomain,
     constructFinSetArrow,
-    finIntSetCat
+    finIntSetCat,
+    applyFinSetArrow,
+    compareFinSetArrow
 ) where
     import Categories.Category
 
@@ -40,3 +42,12 @@ module Categories.FinSet (
 
     finIntSetCat :: Cat (FinSetObject Int) (FinSetArrow Int)
     finIntSetCat = Cat finSetSource finSetTarget finSetId finSetComp
+
+    applyFinSetArrow :: (Ord t) => FinSetArrow t -> FinSetObject t
+    applyFinSetArrow a = Set.map (totalFunction a) (domain a)
+
+    compareFinSetArrow :: (Ord t) => FinSetArrow t -> FinSetArrow t -> Bool
+    compareFinSetArrow a b =
+        (domain a == domain b) &&
+        (codomain a == codomain b) &&
+        (applyFinSetArrow a == applyFinSetArrow b)
