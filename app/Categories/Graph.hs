@@ -1,20 +1,20 @@
 module Categories.Graph(
     Node(..),
     Edge(..),
-    GraphCat
+    graphCat
 ) where
     import Categories.Category
 
-    data Node = Node { label :: String }
-    data Edge = Edge { label:: String, graphSource :: Node, graphTarget :: Node }
+    data Node = Node { name :: String, labelNode :: String } deriving (Eq)
+    data Edge = Edge { labelEdge :: String, graphSource :: Node, graphTarget :: Node } deriving (Eq)
 
     graphId :: Node -> Edge
-    graphId a = Edge("id", a, a)
+    graphId a = Edge "id" a a
 
     graphComposition :: Edge -> Edge -> Edge
-    graphComposition f, g = if graphTarget a == graphSource b
-                                then Edge(label a ++ "." ++ label b, graphSource a, graphTarget b)
+    graphComposition f g = if graphTarget f == graphSource g
+                                then Edge (labelEdge f ++ "." ++ labelEdge g) (graphSource f) (graphTarget g)
                                 else error "these arrows not compose"
 
-    GraphCat :: Cat Node Edge
-    GraphCat = Cat graphSource graphTarget graphId graphComposition
+    graphCat :: Cat Node Edge
+    graphCat = Cat graphSource graphTarget graphId graphComposition
