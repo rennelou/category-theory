@@ -1,43 +1,20 @@
 import System.IO
 import Data.Char
 import Categories.Category
+import Categories.Finite
 import Categories.Graph
 
-a = Node "a" "A"
-b = Node "b" "B"
-ba = Node "ba" "B"
-c = Node "c" "C"
+nodeA = Node "a" (show A)
+nodeB = Node "b" (show B)
+nodeBA = Node "ba" (show B)
+nodeC = Node "c" (show C)
 
-f = Edge "f" a ba
-j = Edge "j" a b
-g = Edge "g" b c
-h = Edge "h" a c
-k = Edge "k" a c
+edgeF = Edge (show F) nodeA nodeBA
+edgeJ = Edge (show G) nodeB
+edgeG = Edge (show H) nodeB nodeC
+edgeH = Edge (show K) nodeA nodeC
 
-defineNode :: Node -> String
-defineNode n =
-    "\t" ++ name n ++
-    "[label=\"" ++
-    labelNode n ++
-    "\"];\n"
-
-printEdge :: Edge -> String
-printEdge e = 
-    "\t" ++ (name.source graphCat) e ++
-    " -> " ++
-    (name.target graphCat) e ++
-    "[label=\"" ++
-    labelEdge e ++
-    "\"];\n"
-
-constructGraph :: [Node] -> [Edge] -> String
-constructGraph nodes edges =
-    "digraph G {\n" ++
-    concatMap defineNode nodes  ++
-    concatMap printEdge edges  ++
-    "}\n"
-
-example = constructGraph [a, b, ba, c] [f, g, h, k, j]
+example = constructGraph [nodeA, nodeB, nodeBA, nodeC] [edgeF, edgeG, edgeH]
 
 main = do  
     writeFile "girlfriendcaps.txt" example

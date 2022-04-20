@@ -7,7 +7,7 @@ module Categories.Finite
     import Categories.Category
 
     data FiniteObject = A | B | C deriving(Show)
-    data FiniteArrow = F | G | H | K | Id FiniteObject
+    data FiniteArrow = F | G | H | K | Id FiniteObject deriving(Show)
 
     finiteSource :: FiniteArrow -> FiniteObject
     finiteSource F = B
