@@ -6,7 +6,7 @@ module Categories.Graph(
 ) where
     import Categories.Category
 
-    data Node = Node { nameNode :: String, labelNode :: String }
+    data Node = Node { nodeId :: String, labelNode :: String }
     data Edge = Edge { labelEdge :: String, graphSource :: Node, graphTarget :: Node }
 
     graphId :: Node -> Edge
@@ -20,28 +20,25 @@ module Categories.Graph(
     graphCat :: Cat Node Edge
     graphCat = Cat graphSource graphTarget graphId graphComposition
 
-    constructGraph :: [Edge] -> String
-    constructGraph edges =
+    constructGraph :: [Node] -> [Edge] -> String
+    constructGraph nodes edges =
         "digraph G {\n" ++
+        concatMap defineNode nodes ++
         concatMap printEdge edges  ++
         "}\n"
 
     defineNode :: Node -> String
     defineNode n =
-        "\t" ++ nameNode n ++
+        "\t" ++ nodeId n ++
         "[label=\"" ++
         labelNode n ++
         "\"];\n"
 
     printEdge :: Edge -> String
     printEdge e =
-        defineNode (source graphCat e) ++
-        
-        defineNode (target graphCat e) ++
-
-        "\t" ++ (nameNode.source graphCat) e ++
+        "\t" ++ (nodeId.source graphCat) e ++
         " -> " ++
-        (nameNode.target graphCat) e ++
+        (nodeId.target graphCat) e ++
         "[label=\"" ++
         labelEdge e ++
         "\"];\n"
