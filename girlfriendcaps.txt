@@ -1,5 +1,0 @@
-digraph G {
-	a -> b[label="F"];
-	b -> a[label="G"];
-	a -> c[label="H"];
-}

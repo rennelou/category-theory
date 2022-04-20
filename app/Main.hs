@@ -4,10 +4,13 @@ import Categories.Category
 import Categories.Finite
 import Categories.Graph
 
-edgeF = finiteToArrow F "a" "b"
+-- esse diagrama esta errado,
+-- o erro acontece porque o graphiviz nao aponta erro se tentar trocar o label de um no ja existente
+
+edgeF = finiteToArrow F "a" "c"
 edgeG = finiteToArrow G "c" "d"
-edgeH = finiteToArrow H "e" "f"
-edgeK = finiteToArrow K "h" "i"
+edgeH = finiteToArrow H "d" "a"
+edgeK = finiteToArrow K "a" "b"
 
 finiteToNode :: FiniteObject -> String -> Node
 finiteToNode finObject name = Node name (show finObject)
