@@ -27,4 +27,4 @@ module GraphFunctor (
               nodes = concatMap (\Edge {labelEdge = _, graphSource = sourceNode, graphTarget = targetNode} -> [sourceNode, targetNode]) edges
 
     catToDot :: (Show o, Show a) => [GraphFunctor o a] -> String
-    catToDot cat = uncurry constructGraph (catToGraph cat)
+    catToDot cat = uncurry graphToDot (catToGraph cat)

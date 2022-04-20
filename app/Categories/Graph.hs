@@ -2,7 +2,7 @@ module Categories.Graph(
     Node(..),
     Edge(..),
     graphCat,
-    constructGraph
+    graphToDot
 ) where
     import Categories.Category
 
@@ -20,22 +20,22 @@ module Categories.Graph(
     graphCat :: Cat Node Edge
     graphCat = Cat graphSource graphTarget graphId graphComposition
 
-    constructGraph :: [Node] -> [Edge] -> String
-    constructGraph nodes edges =
+    graphToDot :: [Node] -> [Edge] -> String
+    graphToDot nodes edges =
         "digraph G {\n" ++
-        concatMap defineNode nodes ++
-        concatMap printEdge edges  ++
+        concatMap nodeToDot nodes ++
+        concatMap edgeToDot edges  ++
         "}\n"
 
-    defineNode :: Node -> String
-    defineNode n =
+    nodeToDot :: Node -> String
+    nodeToDot n =
         "\t" ++ nodeId n ++
         "[label=\"" ++
         labelNode n ++
         "\"];\n"
 
-    printEdge :: Edge -> String
-    printEdge e =
+    edgeToDot :: Edge -> String
+    edgeToDot e =
         "\t" ++ (nodeId.source graphCat) e ++
         " -> " ++
         (nodeId.target graphCat) e ++
