@@ -4,17 +4,18 @@ import Categories.Category
 import Categories.Finite
 import Categories.Graph
 
-nodeA = Node "a" (show A)
-nodeB = Node "b" (show B)
-nodeBA = Node "ba" (show B)
-nodeC = Node "c" (show C)
+edgeF = finiteToArrow F "a" "b"
+edgeG = finiteToArrow G "c" "d"
+edgeH = finiteToArrow H "e" "f"
+edgeK = finiteToArrow K "h" "i"
 
-edgeF = Edge (show F) nodeA nodeBA
-edgeJ = Edge (show G) nodeB
-edgeG = Edge (show H) nodeB nodeC
-edgeH = Edge (show K) nodeA nodeC
+finiteToNode :: FiniteObject -> String -> Node
+finiteToNode finObject name = Node name (show finObject)
 
-example = constructGraph [nodeA, nodeB, nodeBA, nodeC] [edgeF, edgeG, edgeH]
+finiteToArrow :: FiniteArrow -> String -> String -> Edge
+finiteToArrow finArrow nameA nameB = Edge (show finArrow) (finiteToNode (source finiteCat finArrow) nameA) (finiteToNode (target finiteCat finArrow) nameB) 
+
+example = constructGraph [edgeF, edgeG, edgeH, edgeK]
 
 main = do  
     writeFile "girlfriendcaps.txt" example

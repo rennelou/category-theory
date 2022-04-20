@@ -20,10 +20,9 @@ module Categories.Graph(
     graphCat :: Cat Node Edge
     graphCat = Cat graphSource graphTarget graphId graphComposition
 
-    constructGraph :: [Node] -> [Edge] -> String
-    constructGraph nodes edges =
+    constructGraph :: [Edge] -> String
+    constructGraph edges =
         "digraph G {\n" ++
-        concatMap defineNode nodes  ++
         concatMap printEdge edges  ++
         "}\n"
 
@@ -35,7 +34,11 @@ module Categories.Graph(
         "\"];\n"
 
     printEdge :: Edge -> String
-    printEdge e = 
+    printEdge e =
+        defineNode (source graphCat e) ++
+        
+        defineNode (target graphCat e) ++
+
         "\t" ++ (nameNode.source graphCat) e ++
         " -> " ++
         (nameNode.target graphCat) e ++
