@@ -4,10 +4,10 @@ import Data.Char
 import Categories.Finite
 import Categories.EmbGr
 
-edgeF = EmbGrArrow F (EmbGrObject "0") (EmbGrObject "1")
-edgeG = EmbGrArrow G (EmbGrObject "1") (EmbGrObject "3")
-edgeH = EmbGrArrow H (EmbGrObject "1") (EmbGrObject "3")
-edgeK = EmbGrArrow K (EmbGrObject "2") (EmbGrObject "3")
+edgeF = createEmblishArrow F "2" "1"
+edgeG = createEmblishArrow G "1" "3"
+edgeH = createEmblishArrow H "1" "3"
+edgeK = createEmblishArrow K "2" "3"
 
 main = do  
     putStrLn $ catToDot finiteCat [edgeF, edgeG, edgeH, edgeK]
