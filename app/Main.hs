@@ -4,13 +4,10 @@ import Data.Char
 import Categories.Finite
 import GraphFunctor
 
--- esse diagrama esta errado,
--- o erro acontece porque o graphiviz nao aponta erro se tentar trocar o label de um no ja existente
-
-edgeF = GraphFunctor finiteCat F "a" "c"
-edgeG = GraphFunctor finiteCat G "c" "d"
-edgeH = GraphFunctor finiteCat H "d" "a"
-edgeK = GraphFunctor finiteCat K "a" "b"
+edgeF = GraphFunctor finiteCat F "2" "1"
+edgeG = GraphFunctor finiteCat G "4" "3"
+edgeH = GraphFunctor finiteCat H "1" "3"
+edgeK = GraphFunctor finiteCat K "2" "3"
 
 main = do  
     putStrLn $ catToDot [edgeF, edgeG, edgeH, edgeK]
