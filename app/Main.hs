@@ -2,12 +2,12 @@ import System.IO
 import Data.Char
 
 import Categories.Finite
-import GraphFunctor
+import Categories.EmbGr
 
-edgeF = GraphFunctor F "2" "1"
-edgeG = GraphFunctor G "1" "3"
-edgeH = GraphFunctor H "1" "3"
-edgeK = GraphFunctor K "2" "3"
+edgeF = EmbGrArrow F (EmbGrObject "0") (EmbGrObject "1")
+edgeG = EmbGrArrow G (EmbGrObject "1") (EmbGrObject "3")
+edgeH = EmbGrArrow H (EmbGrObject "1") (EmbGrObject "3")
+edgeK = EmbGrArrow K (EmbGrObject "2") (EmbGrObject "3")
 
 main = do  
     putStrLn $ catToDot finiteCat [edgeF, edgeG, edgeH, edgeK]
