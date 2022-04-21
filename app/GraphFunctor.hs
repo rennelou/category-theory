@@ -8,22 +8,21 @@ module GraphFunctor (
     import Text.Printf
     
     data GraphFunctor o a = GraphFunctor { 
-        cat :: Cat o a,
         arrow :: a,
         sourceId :: String,
         targetId :: String
     }
 
-    catToDot :: (Show o, Show a) => [GraphFunctor o a] -> String
-    catToDot cat = uncurry graphToDot (catToGraph cat)
+    catToDot :: (Show o, Show a) => Cat o a -> [GraphFunctor o a] -> String
+    catToDot cat arrows = uncurry graphToDot (catToGraph cat arrows)
     
-    catToGraph :: (Show o, Show a) => [GraphFunctor o a] -> ([Node], [Edge])
-    catToGraph arrows = (nodes, edges)
-        where edges = map arrowToEdge arrows
+    catToGraph :: (Show o, Show a) => Cat o a -> [GraphFunctor o a] -> ([Node], [Edge])
+    catToGraph cat arrows = (nodes, edges)
+        where edges = map (arrowToEdge cat) arrows
               nodes = selectNodeFromEdges edges
 
-    arrowToEdge :: (Show o, Show a) => GraphFunctor o a -> Edge
-    arrowToEdge GraphFunctor { cat=cat, arrow=arr, sourceId=src, targetId=trgt} =
+    arrowToEdge :: (Show o, Show a) => Cat o a -> GraphFunctor o a -> Edge
+    arrowToEdge cat GraphFunctor {arrow=arr, sourceId=src, targetId=trgt} =
         Edge (show arr) sourceNode targetNode
             where sourceNode = objectToNode (source cat arr) src
                   targetNode = objectToNode (target cat arr) trgt
