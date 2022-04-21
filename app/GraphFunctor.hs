@@ -23,10 +23,10 @@ module GraphFunctor (
               nodes = selectNodeFromEdges edges
 
     arrowToEdge :: (Show o, Show a) => GraphFunctor o a -> Edge
-    arrowToEdge GraphFunctor { cat = cat, arrow = arrow, sourceId = sourceId, targetId = targetId} =
-        Edge (show arrow) sourceNode targetNode
-            where sourceNode = objectToNode (source cat arrow) sourceId
-                  targetNode = objectToNode (target cat arrow) targetId
+    arrowToEdge GraphFunctor { cat=cat, arrow=arr, sourceId=src, targetId=trgt} =
+        Edge (show arr) sourceNode targetNode
+            where sourceNode = objectToNode (source cat arr) src
+                  targetNode = objectToNode (target cat arr) trgt
 
     selectNodeFromEdges :: [Edge] -> [Node]
     selectNodeFromEdges edges = Map.elems $ 
