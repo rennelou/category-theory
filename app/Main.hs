@@ -17,7 +17,7 @@ finiteExample = simpleGraphToDot $ toGraph embFinitGraph [edgeF, edgeG, edgeH, e
           edgeK = createEmblishArrow K "2" "3"
 
 finIntSetExample :: String
-finIntSetExample = simpleGraphToDot $ toGraph embFinPosetInt  [edgeF, edgeG, edgeH]
+finIntSetExample = simpleGraphToDot $ toGraph embFinPosetInt [edgeF, edgeG, edgeH]
     where 
           embFinPosetInt :: EmbGraph (FinPosetObjcet Int) (FinPosetArrow Int)
           embFinPosetInt = createEmbGraph createFinPosetCat (tagO, tagA)
