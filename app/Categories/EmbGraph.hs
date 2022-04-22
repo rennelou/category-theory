@@ -8,7 +8,7 @@ module Categories.EmbGraph (
     import Categories.SimpleGraph
     
     data EmbGraph o a = EmbGraph {
-        cat ::Cat (EmbGraphObject o) (EmbGraphArrow o a),
+        emblishedCat :: Cat (EmbGraphObject o) (EmbGraphArrow o a),
         toGraph :: [EmbGraphArrow o a] -> [Edge]
     }
 
