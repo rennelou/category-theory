@@ -5,6 +5,7 @@ module Categories.Graph(
     graphToDot
 ) where
     import Categories.Category
+    import qualified Data.Map as Map
     import Text.Printf
 
     data Node = Node { nodeId :: String, labelNode :: String }
@@ -25,9 +26,10 @@ module Categories.Graph(
                                    else
                                         error "these arrows not compose"
 
-    graphToDot :: ([Node], [Edge]) -> String
-    graphToDot (nodes, edges) =
+    graphToDot :: [Edge] -> String
+    graphToDot edges =
         printf "digraph G {\n%s\n%s}\n" (concatMap nodeToDot nodes) (concatMap edgeToDot edges)
+        where nodes = selectNodeFromEdges edges
 
     nodeToDot :: Node -> String
     nodeToDot n =
@@ -40,3 +42,22 @@ module Categories.Graph(
             (nodeId.source graphCat $ e)
             (nodeId.target graphCat $ e)
             (labelEdge e)
+
+    selectNodeFromEdges :: [Edge] -> [Node]
+    selectNodeFromEdges edges = Map.elems $ 
+        foldr tryAddNodes Map.empty (concatMap (\e -> [graphSource e, graphTarget e]) edges)
+
+    tryAddNodes :: Node -> Map.Map String Node -> Map.Map String Node
+    tryAddNodes node = Map.insertWith 
+        (\ a b ->
+            if labelNode a == labelNode b then
+                a 
+            else
+                error $ printf 
+                            "Node %s can't rename label %s to %s"
+                            (nodeId a)
+                            (labelNode a)
+                            (labelNode b)
+        )
+        (nodeId node)
+        node

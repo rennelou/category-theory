@@ -8,8 +8,6 @@ module Categories.EmbGr (
 ) where
     import Categories.Category
     import Categories.Graph
-    import qualified Data.Map as Map
-    import Text.Printf
     
     type EmbGr o a = Cat (EmbGrObject o) (EmbGrArrow o a)
 
@@ -42,35 +40,15 @@ module Categories.EmbGr (
             embComp :: Cat o a -> EmbGrArrow o a -> EmbGrArrow o a -> EmbGrArrow o a
             embComp cat a b = EmbGrArrow (camposition cat (arrow a) (arrow b)) (tagSource a) (tagTarget b)
 
-    catToGraph :: Cat o a -> (o -> String) -> (a -> String) -> [EmbGrArrow o a] -> ([Node], [Edge])
-    catToGraph cat labelObject labelArrow arrows = (nodes, edges)
-        where edges = map (arrowToEdge cat labelObject labelArrow) arrows
-              nodes = selectNodeFromEdges edges
+    catToGraph :: Cat o a -> (o -> String) -> (a -> String) -> [EmbGrArrow o a] -> [Edge]
+    catToGraph cat labelObject labelArrow = map arrowToEdge'
+        where arrowToEdge' = arrowToEdge cat labelObject labelArrow
 
     arrowToEdge :: Cat o a -> (o -> String) -> (a -> String) -> EmbGrArrow o a -> Edge
     arrowToEdge cat labelObject labelArrow EmbGrArrow {arrow=arr, tagSource=tagSource, tagTarget=tagTarget} =
         Edge (labelArrow arr) sourceNode targetNode
             where sourceNode = objectToNode labelObject (tagSource (source cat arr))
                   targetNode = objectToNode labelObject (tagTarget (target cat arr))
-
-    selectNodeFromEdges :: [Edge] -> [Node]
-    selectNodeFromEdges edges = Map.elems $ 
-        foldr tryAddNodes Map.empty (concatMap (\e -> [graphSource e, graphTarget e]) edges)
-
-    tryAddNodes :: Node -> Map.Map String Node -> Map.Map String Node
-    tryAddNodes node = Map.insertWith 
-        (\ a b ->
-            if labelNode a == labelNode b then
-                a 
-            else
-                error $ printf 
-                            "Node %s can't rename label %s to %s"
-                            (nodeId a)
-                            (labelNode a)
-                            (labelNode b)
-        )
-        (nodeId node)
-        node
 
     objectToNode :: (o -> String) -> EmbGrObject o -> Node
     objectToNode labelObject embGr = Node (tag embGr) (labelObject (embeddedObject embGr))
