@@ -12,6 +12,9 @@ finiteExample = graphToDot $ catToGraph finiteCat show show [edgeF, edgeG, edgeH
           edgeH = createEmblishArrow H "1" "3"
           edgeK = createEmblishArrow K "2" "3"
 
+finIntSetCat :: FinSetCat Int
+finIntSetCat = createFinSetCat
+
 finIntSetExample = graphToDot $ catToGraph finIntSetCat tagO tagA [edgeF, edgeG, edgeH]
     where a = Set.fromList [0, 1, 2, 3]
           f = constructFinSetArrow a (\x -> x*x) Set.empty

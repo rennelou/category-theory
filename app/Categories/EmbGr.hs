@@ -1,4 +1,5 @@
 module Categories.EmbGr (
+    EmbGr,
     EmbGrObject,
     EmbGrArrow,
     createEmbGr,
@@ -10,6 +11,8 @@ module Categories.EmbGr (
     import qualified Data.Map as Map
     import Text.Printf
     
+    type EmbGr o a = Cat (EmbGrObject o) (EmbGrArrow o a)
+
     data EmbGrObject o = EmbGrObject {
         tag :: String,
         embeddedObject :: o
@@ -24,23 +27,21 @@ module Categories.EmbGr (
     createEmblishArrow :: a -> String -> String -> EmbGrArrow o a
     createEmblishArrow arr tagA tagB = EmbGrArrow arr (EmbGrObject tagA) (EmbGrObject tagB)
 
--- Categoria dos grafos enriquecidos
-    createEmbGr :: Cat o a -> Cat (EmbGrObject o) (EmbGrArrow o a)
+    createEmbGr :: Cat o a -> EmbGr o a
     createEmbGr cat = Cat (embGrSource cat) (embGrTarget cat) (embGrId cat) (embComp cat)
+        where
+            embGrSource :: Cat o a -> EmbGrArrow o a -> EmbGrObject o
+            embGrSource cat embArrow = tagSource embArrow $ source cat (arrow embArrow)
 
-    embGrSource :: Cat o a -> EmbGrArrow o a -> EmbGrObject o
-    embGrSource cat embArrow = tagSource embArrow $ source cat (arrow embArrow)
+            embGrTarget :: Cat o a -> EmbGrArrow o a -> EmbGrObject o
+            embGrTarget cat embArrow = tagTarget embArrow $ target cat (arrow embArrow)
 
-    embGrTarget :: Cat o a -> EmbGrArrow o a -> EmbGrObject o
-    embGrTarget cat embArrow = tagTarget embArrow $ target cat (arrow embArrow)
+            embGrId :: Cat o a -> EmbGrObject o -> EmbGrArrow o a
+            embGrId cat obj = EmbGrArrow (identity cat (embeddedObject obj)) (const obj) (const obj)
 
-    embGrId :: Cat o a -> EmbGrObject o -> EmbGrArrow o a
-    embGrId cat obj = EmbGrArrow (identity cat (embeddedObject obj)) (const obj) (const obj)
+            embComp :: Cat o a -> EmbGrArrow o a -> EmbGrArrow o a -> EmbGrArrow o a
+            embComp cat a b = EmbGrArrow (camposition cat (arrow a) (arrow b)) (tagSource a) (tagTarget b)
 
-    embComp :: Cat o a -> EmbGrArrow o a -> EmbGrArrow o a -> EmbGrArrow o a
-    embComp cat a b = EmbGrArrow (camposition cat (arrow a) (arrow b)) (tagSource a) (tagTarget b)
-
--- Metodos
     catToGraph :: Cat o a -> (o -> String) -> (a -> String) -> [EmbGrArrow o a] -> ([Node], [Edge])
     catToGraph cat labelObject labelArrow arrows = (nodes, edges)
         where edges = map (arrowToEdge cat labelObject labelArrow) arrows
