@@ -25,8 +25,8 @@ module Categories.Graph(
     graphCat :: Cat Node Edge
     graphCat = Cat graphSource graphTarget graphId graphComposition
 
-    graphToDot :: [Node] -> [Edge] -> String
-    graphToDot nodes edges =
+    graphToDot :: ([Node], [Edge]) -> String
+    graphToDot (nodes, edges) =
         printf "digraph G {\n%s\n%s}\n" (concatMap nodeToDot nodes) (concatMap edgeToDot edges)
 
     nodeToDot :: Node -> String
