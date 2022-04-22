@@ -6,16 +6,13 @@ import Categories.Finite
 import Categories.FinSet
 import qualified Data.Set as Set
 
-finiteExample = graphToDot $ catToGraph finiteCat show show [edgeF, edgeG, edgeH, edgeK]
+finiteExample = graphToDot $ catToGraph finiteCat (show, show) [edgeF, edgeG, edgeH, edgeK]
     where edgeF = createEmblishArrow F "0" "1"
           edgeG = createEmblishArrow G "1" "3"
           edgeH = createEmblishArrow H "1" "3"
           edgeK = createEmblishArrow K "2" "3"
 
-finIntSetCat :: FinSetCat Int
-finIntSetCat = createFinSetCat
-
-finIntSetExample = graphToDot $ catToGraph finIntSetCat tagO tagA [edgeF, edgeG, edgeH]
+finIntSetExample = graphToDot $ catToGraph createFinSetCat (tagO, tagA) [edgeF, edgeG, edgeH]
     where a = Set.fromList [0, 1, 2, 3]
           f = constructFinSetArrow a (\x -> x*x) Set.empty
           b = codomain f

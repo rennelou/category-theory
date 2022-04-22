@@ -1,10 +1,8 @@
 module Categories.EmbGr (
     EmbGr,
-    EmbGrObject,
-    EmbGrArrow,
     createEmbGr,
-    createEmblishArrow,
-    catToGraph
+    catToGraph,
+    createEmblishArrow
 ) where
     import Categories.Category
     import Categories.Graph
@@ -39,13 +37,13 @@ module Categories.EmbGr (
 
             embComp :: Cat o a -> EmbGrArrow o a -> EmbGrArrow o a -> EmbGrArrow o a
             embComp cat a b = EmbGrArrow (camposition cat (arrow a) (arrow b)) (tagSource a) (tagTarget b)
+    
+    catToGraph :: Cat o a -> (o -> String, a -> String) -> [EmbGrArrow o a] -> [Edge]
+    catToGraph cat toStringString = map arrowToEdge'
+        where arrowToEdge' = arrowToEdge cat toStringString
 
-    catToGraph :: Cat o a -> (o -> String) -> (a -> String) -> [EmbGrArrow o a] -> [Edge]
-    catToGraph cat labelObject labelArrow = map arrowToEdge'
-        where arrowToEdge' = arrowToEdge cat labelObject labelArrow
-
-    arrowToEdge :: Cat o a -> (o -> String) -> (a -> String) -> EmbGrArrow o a -> Edge
-    arrowToEdge cat labelObject labelArrow EmbGrArrow {arrow=arr, tagSource=tagSource, tagTarget=tagTarget} =
+    arrowToEdge :: Cat o a -> (o -> String, a -> String) -> EmbGrArrow o a -> Edge
+    arrowToEdge cat (labelObject, labelArrow) EmbGrArrow {arrow=arr, tagSource=tagSource, tagTarget=tagTarget} =
         Edge (labelArrow arr) sourceNode targetNode
             where sourceNode = objectToNode labelObject (tagSource (source cat arr))
                   targetNode = objectToNode labelObject (tagTarget (target cat arr))
