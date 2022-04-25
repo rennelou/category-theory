@@ -1,10 +1,7 @@
 module Categories.FinPoset (
     FinPosetCat,
     FinPosetObjcet,
-    FinPosetArrow,
-    domain,
-    totalFunction,
-    codomain,
+    FinPosetArrow(..),
     constructFinPosetArrow,
     createFinPosetCat,
     applyFinPosetArrow,

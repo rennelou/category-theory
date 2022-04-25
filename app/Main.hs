@@ -1,4 +1,4 @@
-import Examples.Finite
+import Examples.FinPoset
 
 main = do  
-      putStrLn finiteExample
+      putStrLn initalObjectExample

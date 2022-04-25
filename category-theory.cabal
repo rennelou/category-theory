@@ -33,7 +33,8 @@ executable category-theory
                    Categories.FinPoset,
                    Categories.EmbGraph,
                    Examples.Finite,
-                   Examples.FinPoset
+                   Examples.FinPoset,
+                   UniversalConstructions.InitialObject
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
