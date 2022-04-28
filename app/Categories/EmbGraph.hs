@@ -4,7 +4,7 @@ module Categories.EmbGraph (
     toGraph,
     createEmblishArrow
 ) where
-    import Categories.Category
+    import Constructions.Category
     import Categories.SimpleGraph
     
     data EmbGraph o a = EmbGraph {

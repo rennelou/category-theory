@@ -4,7 +4,7 @@ module Categories.Finite
     FiniteObject(..),
     FiniteArrow(..)
 ) where
-    import Categories.Category
+    import Constructions.Category
 
     data FiniteObject = A | B | C deriving(Show)
     data FiniteArrow = F | G | H | K | Id FiniteObject deriving(Show)

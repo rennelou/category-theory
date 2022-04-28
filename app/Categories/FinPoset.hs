@@ -7,7 +7,7 @@ module Categories.FinPoset (
     applyFinPosetArrow,
     compareFinPosetArrow
 ) where
-    import Categories.Category
+    import Constructions.Category
     import qualified Data.Set as Set
 
     type FinPosetCat t = Cat (FinPosetObjcet t) (FinPosetArrow t)

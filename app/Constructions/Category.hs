@@ -1,4 +1,4 @@
-module Categories.Category
+module Constructions.Category
 (
     Cat(..)
 ) where

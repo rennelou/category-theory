@@ -4,7 +4,7 @@ module Categories.SimpleGraph(
     simpleGraphCat,
     simpleGraphToDot
 ) where
-    import Categories.Category
+    import Constructions.Category
     import qualified Data.Map as Map
     import Text.Printf
 

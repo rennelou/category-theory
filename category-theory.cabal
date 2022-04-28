@@ -27,14 +27,15 @@ executable category-theory
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: Categories.Category,
+    other-modules: Constructions.Category,
+                   Constructions.InitialObject,
                    Categories.SimpleGraph,
                    Categories.Finite,
                    Categories.FinPoset,
                    Categories.EmbGraph,
                    Examples.Finite,
                    Examples.FinPoset,
-                   UniversalConstructions.InitialObject
+                   Examples.IniteObject
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
