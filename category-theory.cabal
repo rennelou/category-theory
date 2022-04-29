@@ -29,6 +29,7 @@ executable category-theory
     -- Modules included in this executable, other than Main.
     other-modules: Constructions.Category,
                    Constructions.InitialObject,
+                   Constructions.CoProduct,
                    Categories.SimpleGraph,
                    Categories.Finite,
                    Categories.FinPoset,
