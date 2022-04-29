@@ -3,7 +3,6 @@ module Examples.IniteObject (
 ) where
     import Categories.EmbGraph
     import Categories.SimpleGraph
-    import Categories.Finite
     import Categories.FinPoset
     import Constructions.InitialObject
     import qualified Data.Set as Set
