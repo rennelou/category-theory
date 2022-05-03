@@ -36,7 +36,8 @@ executable category-theory
                    Categories.EmbGraph,
                    Examples.Finite,
                    Examples.FinPoset,
-                   Examples.IniteObject
+                   Examples.IniteObject,
+                   Examples.CoProduct
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
